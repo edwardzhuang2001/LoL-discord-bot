@@ -1,3 +1,6 @@
+# heroku is connected to github
+# just push changes to github and they will be live within 5 min
+
 import discord
 from discord.ext import commands
 import os
@@ -7,12 +10,16 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity = discord.Game("Listening to .opgg username"))
+    await client.change_presence(activity = discord.Game(".opgg username"))
     print("Online.")
 
 @client.command()
-async def ping(ctx) :
-    await ctx.send(f'Pong with {str(round(client.latency, 2)*1000)}')
+async def ping(ctx):
+    await ctx.send(f'Pong with {str(client.latency)*1000} ms')
+
+@client.command()
+async def help(ctx):
+    await ctx.send()
 
 @client.command()
 async def opgg(ctx, *, username):
