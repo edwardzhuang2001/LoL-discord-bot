@@ -17,9 +17,9 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send(f'Pong with {str(round(client.latency*1000))} ms')
 
-@client.command()
-async def help(ctx):
-    await ctx.send()
+# @client.command()
+# async def help(ctx):
+#     await ctx.send()
 
 @client.command()
 async def opgg(ctx, *, username):
@@ -27,16 +27,16 @@ async def opgg(ctx, *, username):
     await ctx.send(f'https://na.op.gg/summoner/userName={username}')
     # add diff regions too, currently only NA
 
-@client.command()
-async def profile(ctx, *, username):
-    await ctx.send()
+# @client.command()
+# async def profile(ctx, *, username):
+#     await ctx.send()
 
-@client.command()
-async def recent(ctx, *, username):
-    await ctx.send()
+# @client.command()
+# async def recent(ctx, *, username):
+#     await ctx.send()
 
-@client.command()
-async def live(ctx, *, username):
-    await ctx.send()
+# @client.command()
+# async def live(ctx, *, username):
+#     await ctx.send()
 
 client.run(TOKEN)
