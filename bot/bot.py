@@ -2,11 +2,12 @@ import discord
 from discord.ext import commands
 import os
 
-client = commands.Bot(command_prefix='.')
+client = commands.Bot(command_prefix = '.')
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 @client.event
 async def on_ready():
+    await client.change_presence(activity = discord.Game("Listening to .opgg username"))
     print("Online.")
 
 @client.command()
