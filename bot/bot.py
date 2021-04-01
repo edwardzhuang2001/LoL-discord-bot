@@ -15,7 +15,7 @@ async def on_ready():
 
 @client.command()
 async def ping(ctx):
-    await ctx.send(f'Pong with {str(client.latency)*1000} ms')
+    await ctx.send(f'Pong with {str(round(client.latency*1000))} ms')
 
 @client.command()
 async def help(ctx):
