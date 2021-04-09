@@ -39,16 +39,51 @@ class LoL(commands.Cog):
         r = requests.get(f'https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/{summoner_id}?api_key={RIOT_TOKEN}')
 
         ranked_data = json.loads(r.text)
-        ranked_solo_rank = ranked_data[0]['tier'] + ' ' + \
-            ranked_data[0]['rank'] + ' ' + \
-            str(ranked_data[0]['leaguePoints']) + ' ' + 'LP'
-        ranked_solo_winloss = str(ranked_data[0]['wins']) + '/' + str(ranked_data[0]['losses'])
-        ranked_solo_winrate = str(round(ranked_data[0]['wins'] / (ranked_data[0]['wins'] + ranked_data[0]['losses']) * 100)) + '%'
-        ranked_flex_rank = ranked_data[1]['tier'] + ' ' + \
-            ranked_data[1]['rank'] + ' ' + \
-            str(ranked_data[1]['leaguePoints']) + ' ' + 'LP'
-        ranked_flex_winloss = str(ranked_data[1]['wins']) + '/' + str(ranked_data[1]['losses'])
-        ranked_flex_winrate = str(round(ranked_data[1]['wins'] / (ranked_data[1]['wins'] + ranked_data[1]['losses']) * 100)) + '%'
+
+        if ranked_data[0]['queueType'] == 'RANKED_SOLO_5x5':
+            try:
+                ranked_solo_rank = ranked_data[0]['tier'] + ' ' + \
+                    ranked_data[0]['rank'] + ' ' + \
+                    str(ranked_data[0]['leaguePoints']) + ' ' + 'LP'
+                ranked_solo_winloss = str(ranked_data[0]['wins']) + '/' + str(ranked_data[0]['losses'])
+                ranked_solo_winrate = str(round(ranked_data[0]['wins'] / (ranked_data[0]['wins'] + ranked_data[0]['losses']) * 100)) + '%'
+            except:
+                ranked_solo_rank = '---'
+                ranked_solo_winloss = '---'
+                ranked_solo_winrate = '---'
+
+            try:
+                ranked_flex_rank = ranked_data[1]['tier'] + ' ' + \
+                    ranked_data[1]['rank'] + ' ' + \
+                    str(ranked_data[1]['leaguePoints']) + ' ' + 'LP'
+                ranked_flex_winloss = str(ranked_data[1]['wins']) + '/' + str(ranked_data[1]['losses'])
+                ranked_flex_winrate = str(round(ranked_data[1]['wins'] / (ranked_data[1]['wins'] + ranked_data[1]['losses']) * 100)) + '%'
+            except:
+                ranked_flex_rank = '---'
+                ranked_flex_winloss = '---'
+                ranked_flex_winrate = '---'
+        elif ranked_data[0]['queueType'] == 'RANKED_FLEX_SR':
+            try:
+                ranked_solo_rank = ranked_data[1]['tier'] + ' ' + \
+                    ranked_data[1]['rank'] + ' ' + \
+                    str(ranked_data[1]['leaguePoints']) + ' ' + 'LP'
+                ranked_solo_winloss = str(ranked_data[1]['wins']) + '/' + str(ranked_data[1]['losses'])
+                ranked_solo_winrate = str(round(ranked_data[1]['wins'] / (ranked_data[1]['wins'] + ranked_data[1]['losses']) * 100)) + '%'
+            except:
+                ranked_solo_rank = '---'
+                ranked_solo_winloss = '---'
+                ranked_solo_winrate = '---'
+
+            try:
+                ranked_flex_rank = ranked_data[0]['tier'] + ' ' + \
+                    ranked_data[0]['rank'] + ' ' + \
+                    str(ranked_data[0]['leaguePoints']) + ' ' + 'LP'
+                ranked_flex_winloss = str(ranked_data[0]['wins']) + '/' + str(ranked_data[0]['losses'])
+                ranked_flex_winrate = str(round(ranked_data[0]['wins'] / (ranked_data[0]['wins'] + ranked_data[0]['losses']) * 100)) + '%'
+            except:
+                ranked_flex_rank = '---'
+                ranked_flex_winloss = '---'
+                ranked_flex_winrate = '---'
 
         r = requests.get(f'https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{summoner_id}?api_key={RIOT_TOKEN}')
 
