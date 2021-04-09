@@ -81,7 +81,10 @@ class LoL(commands.Cog):
             champion_mastery_names[2] + ', ' + \
             champion_mastery_names[3] + ', ' + \
             champion_mastery_names[4], inline=True)
-        embed.set_image(url=f'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{champion_mastery_names[0]}_0.jpg')
+        if summoner_name == 'AIready':
+            embed.set_image(url=f'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{champion_mastery_names[0]}_0.jpg')
+        else:
+            embed.set_image(url=f'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tryndamere_1.jpg')
 
         await ctx.send(embed=embed)
 
