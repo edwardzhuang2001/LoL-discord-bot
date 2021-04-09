@@ -85,6 +85,27 @@ class LoL(commands.Cog):
                 ranked_flex_winloss = '---'
                 ranked_flex_winrate = '---'
 
+        highest_rank_emblem = None
+
+        if ranked_solo_rank.split()[0] == 'CHALLENGER' or ranked_flex_rank.split()[0] == 'CHALLENGER':
+            highest_rank_emblem = 'https://i.imgur.com/mS3O3lO.png'
+        elif ranked_solo_rank.split()[0] == 'GRANDMASTER' or ranked_flex_rank.split()[0] == 'GRANDMASTER':
+            highest_rank_emblem = 'https://i.imgur.com/My23dLO.png'
+        elif ranked_solo_rank.split()[0] == 'MASTER' or ranked_flex_rank.split()[0] == 'MASTER':
+            highest_rank_emblem = 'https://i.imgur.com/OVBHr69.png'
+        elif ranked_solo_rank.split()[0] == 'DIAMOND' or ranked_flex_rank.split()[0] == 'DIAMOND':
+            highest_rank_emblem = 'https://i.imgur.com/a4sMR4R.png'
+        elif ranked_solo_rank.split()[0] == 'PLATINUM' or ranked_flex_rank.split()[0] == 'PLATINUM':
+            highest_rank_emblem = 'https://i.imgur.com/8xizso8.png'
+        elif ranked_solo_rank.split()[0] == 'GOLD' or ranked_flex_rank.split()[0] == 'GOLD':
+            highest_rank_emblem = 'https://i.imgur.com/9w9eA7u.png'
+        elif ranked_solo_rank.split()[0] == 'SILVER' or ranked_flex_rank.split()[0] == 'SILVER':
+            highest_rank_emblem = 'https://i.imgur.com/0YqAEEk.png'
+        elif ranked_solo_rank.split()[0] == 'BRONZE' or ranked_flex_rank.split()[0] == 'BRONZE':
+            highest_rank_emblem = 'https://i.imgur.com/O8OmrdJ.png'
+        elif ranked_solo_rank.split()[0] == 'IRON' or ranked_flex_rank.split()[0] == 'IRON':
+            highest_rank_emblem = 'https://i.imgur.com/299uEYM.png'
+
         r = requests.get(f'https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{summoner_id}?api_key={RIOT_TOKEN}')
 
         champion_mastery_data = json.loads(r.text)
@@ -102,6 +123,7 @@ class LoL(commands.Cog):
 
         embed = discord.Embed(description=summoner_level, colour=0x800080)
         embed.set_author(name=summoner_name, icon_url=f'http://ddragon.leagueoflegends.com/cdn/11.7.1/img/profileicon/{profile_icon}.png')
+        embed.set_thumbnail(url=highest_rank_emblem)
 
         embed.add_field(name='Ranked Solo', value=ranked_solo_rank, inline=True)
         embed.add_field(name='Winrate', value=ranked_solo_winrate, inline=True)
@@ -120,6 +142,8 @@ class LoL(commands.Cog):
             embed.set_image(url=f'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Tryndamere_1.jpg')
         else:
             embed.set_image(url=f'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{champion_mastery_names[0]}_0.jpg')
+
+        embed.set_footer(text='Information requested by ' + ctx.author.name)
 
         await ctx.send(embed=embed)
 
