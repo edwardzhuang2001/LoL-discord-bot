@@ -40,71 +40,81 @@ class LoL(commands.Cog):
 
         ranked_data = json.loads(r.text)
 
-        if ranked_data[0]['queueType'] == 'RANKED_SOLO_5x5':
-            try:
-                ranked_solo_rank = ranked_data[0]['tier'] + ' ' + \
-                    ranked_data[0]['rank'] + ' ' + \
-                    str(ranked_data[0]['leaguePoints']) + ' ' + 'LP'
-                ranked_solo_winloss = str(ranked_data[0]['wins']) + '/' + str(ranked_data[0]['losses'])
-                ranked_solo_winrate = str(round(ranked_data[0]['wins'] / (ranked_data[0]['wins'] + ranked_data[0]['losses']) * 100)) + '%'
-            except:
-                ranked_solo_rank = '---'
-                ranked_solo_winloss = '---'
-                ranked_solo_winrate = '---'
+        try:
+            if ranked_data[0]['queueType'] == 'RANKED_SOLO_5x5':
+                try:
+                    ranked_solo_rank = ranked_data[0]['tier'] + ' ' + \
+                        ranked_data[0]['rank'] + ' ' + \
+                        str(ranked_data[0]['leaguePoints']) + ' ' + 'LP'
+                    ranked_solo_winloss = str(ranked_data[0]['wins']) + '/' + str(ranked_data[0]['losses'])
+                    ranked_solo_winrate = str(round(ranked_data[0]['wins'] / (ranked_data[0]['wins'] + ranked_data[0]['losses']) * 100)) + '%'
+                except:
+                    ranked_solo_rank = '---'
+                    ranked_solo_winloss = '---'
+                    ranked_solo_winrate = '---'
 
-            try:
-                ranked_flex_rank = ranked_data[1]['tier'] + ' ' + \
-                    ranked_data[1]['rank'] + ' ' + \
-                    str(ranked_data[1]['leaguePoints']) + ' ' + 'LP'
-                ranked_flex_winloss = str(ranked_data[1]['wins']) + '/' + str(ranked_data[1]['losses'])
-                ranked_flex_winrate = str(round(ranked_data[1]['wins'] / (ranked_data[1]['wins'] + ranked_data[1]['losses']) * 100)) + '%'
-            except:
-                ranked_flex_rank = '---'
-                ranked_flex_winloss = '---'
-                ranked_flex_winrate = '---'
-        elif ranked_data[0]['queueType'] == 'RANKED_FLEX_SR':
-            try:
-                ranked_solo_rank = ranked_data[1]['tier'] + ' ' + \
-                    ranked_data[1]['rank'] + ' ' + \
-                    str(ranked_data[1]['leaguePoints']) + ' ' + 'LP'
-                ranked_solo_winloss = str(ranked_data[1]['wins']) + '/' + str(ranked_data[1]['losses'])
-                ranked_solo_winrate = str(round(ranked_data[1]['wins'] / (ranked_data[1]['wins'] + ranked_data[1]['losses']) * 100)) + '%'
-            except:
-                ranked_solo_rank = '---'
-                ranked_solo_winloss = '---'
-                ranked_solo_winrate = '---'
+                try:
+                    ranked_flex_rank = ranked_data[1]['tier'] + ' ' + \
+                        ranked_data[1]['rank'] + ' ' + \
+                        str(ranked_data[1]['leaguePoints']) + ' ' + 'LP'
+                    ranked_flex_winloss = str(ranked_data[1]['wins']) + '/' + str(ranked_data[1]['losses'])
+                    ranked_flex_winrate = str(round(ranked_data[1]['wins'] / (ranked_data[1]['wins'] + ranked_data[1]['losses']) * 100)) + '%'
+                except:
+                    ranked_flex_rank = '---'
+                    ranked_flex_winloss = '---'
+                    ranked_flex_winrate = '---'
+            elif ranked_data[0]['queueType'] == 'RANKED_FLEX_SR':
+                try:
+                    ranked_solo_rank = ranked_data[1]['tier'] + ' ' + \
+                        ranked_data[1]['rank'] + ' ' + \
+                        str(ranked_data[1]['leaguePoints']) + ' ' + 'LP'
+                    ranked_solo_winloss = str(ranked_data[1]['wins']) + '/' + str(ranked_data[1]['losses'])
+                    ranked_solo_winrate = str(round(ranked_data[1]['wins'] / (ranked_data[1]['wins'] + ranked_data[1]['losses']) * 100)) + '%'
+                except:
+                    ranked_solo_rank = '---'
+                    ranked_solo_winloss = '---'
+                    ranked_solo_winrate = '---'
 
-            try:
-                ranked_flex_rank = ranked_data[0]['tier'] + ' ' + \
-                    ranked_data[0]['rank'] + ' ' + \
-                    str(ranked_data[0]['leaguePoints']) + ' ' + 'LP'
-                ranked_flex_winloss = str(ranked_data[0]['wins']) + '/' + str(ranked_data[0]['losses'])
-                ranked_flex_winrate = str(round(ranked_data[0]['wins'] / (ranked_data[0]['wins'] + ranked_data[0]['losses']) * 100)) + '%'
-            except:
-                ranked_flex_rank = '---'
-                ranked_flex_winloss = '---'
-                ranked_flex_winrate = '---'
+                try:
+                    ranked_flex_rank = ranked_data[0]['tier'] + ' ' + \
+                        ranked_data[0]['rank'] + ' ' + \
+                        str(ranked_data[0]['leaguePoints']) + ' ' + 'LP'
+                    ranked_flex_winloss = str(ranked_data[0]['wins']) + '/' + str(ranked_data[0]['losses'])
+                    ranked_flex_winrate = str(round(ranked_data[0]['wins'] / (ranked_data[0]['wins'] + ranked_data[0]['losses']) * 100)) + '%'
+                except:
+                    ranked_flex_rank = '---'
+                    ranked_flex_winloss = '---'
+                    ranked_flex_winrate = '---'
+        except:
+            ranked_solo_rank = '---'
+            ranked_solo_winloss = '---'
+            ranked_solo_winrate = '---'
+            ranked_flex_rank = '---'
+            ranked_flex_winloss = '---'
+            ranked_flex_winrate = '---'
+            highest_rank_emblem = 'https://i.imgur.com/boyn68O.png'
 
-        highest_rank_emblem = None
-
-        if ranked_solo_rank.split()[0] == 'CHALLENGER' or ranked_flex_rank.split()[0] == 'CHALLENGER':
-            highest_rank_emblem = 'https://i.imgur.com/mS3O3lO.png'
-        elif ranked_solo_rank.split()[0] == 'GRANDMASTER' or ranked_flex_rank.split()[0] == 'GRANDMASTER':
-            highest_rank_emblem = 'https://i.imgur.com/My23dLO.png'
-        elif ranked_solo_rank.split()[0] == 'MASTER' or ranked_flex_rank.split()[0] == 'MASTER':
-            highest_rank_emblem = 'https://i.imgur.com/OVBHr69.png'
-        elif ranked_solo_rank.split()[0] == 'DIAMOND' or ranked_flex_rank.split()[0] == 'DIAMOND':
-            highest_rank_emblem = 'https://i.imgur.com/a4sMR4R.png'
-        elif ranked_solo_rank.split()[0] == 'PLATINUM' or ranked_flex_rank.split()[0] == 'PLATINUM':
-            highest_rank_emblem = 'https://i.imgur.com/8xizso8.png'
-        elif ranked_solo_rank.split()[0] == 'GOLD' or ranked_flex_rank.split()[0] == 'GOLD':
-            highest_rank_emblem = 'https://i.imgur.com/9w9eA7u.png'
-        elif ranked_solo_rank.split()[0] == 'SILVER' or ranked_flex_rank.split()[0] == 'SILVER':
-            highest_rank_emblem = 'https://i.imgur.com/0YqAEEk.png'
-        elif ranked_solo_rank.split()[0] == 'BRONZE' or ranked_flex_rank.split()[0] == 'BRONZE':
-            highest_rank_emblem = 'https://i.imgur.com/O8OmrdJ.png'
-        elif ranked_solo_rank.split()[0] == 'IRON' or ranked_flex_rank.split()[0] == 'IRON':
-            highest_rank_emblem = 'https://i.imgur.com/299uEYM.png'
+        try:
+            if ranked_solo_rank.split()[0] == 'CHALLENGER' or ranked_flex_rank.split()[0] == 'CHALLENGER':
+                highest_rank_emblem = 'https://i.imgur.com/mS3O3lO.png'
+            elif ranked_solo_rank.split()[0] == 'GRANDMASTER' or ranked_flex_rank.split()[0] == 'GRANDMASTER':
+                highest_rank_emblem = 'https://i.imgur.com/My23dLO.png'
+            elif ranked_solo_rank.split()[0] == 'MASTER' or ranked_flex_rank.split()[0] == 'MASTER':
+                highest_rank_emblem = 'https://i.imgur.com/OVBHr69.png'
+            elif ranked_solo_rank.split()[0] == 'DIAMOND' or ranked_flex_rank.split()[0] == 'DIAMOND':
+                highest_rank_emblem = 'https://i.imgur.com/a4sMR4R.png'
+            elif ranked_solo_rank.split()[0] == 'PLATINUM' or ranked_flex_rank.split()[0] == 'PLATINUM':
+                highest_rank_emblem = 'https://i.imgur.com/8xizso8.png'
+            elif ranked_solo_rank.split()[0] == 'GOLD' or ranked_flex_rank.split()[0] == 'GOLD':
+                highest_rank_emblem = 'https://i.imgur.com/9w9eA7u.png'
+            elif ranked_solo_rank.split()[0] == 'SILVER' or ranked_flex_rank.split()[0] == 'SILVER':
+                highest_rank_emblem = 'https://i.imgur.com/0YqAEEk.png'
+            elif ranked_solo_rank.split()[0] == 'BRONZE' or ranked_flex_rank.split()[0] == 'BRONZE':
+                highest_rank_emblem = 'https://i.imgur.com/O8OmrdJ.png'
+            elif ranked_solo_rank.split()[0] == 'IRON' or ranked_flex_rank.split()[0] == 'IRON':
+                highest_rank_emblem = 'https://i.imgur.com/299uEYM.png'
+        except:
+            pass
 
         r = requests.get(f'https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/{summoner_id}?api_key={RIOT_TOKEN}')
 
